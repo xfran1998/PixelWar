@@ -20,9 +20,13 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
+// Default route
+app.use('/', express.static(path.join(__dirname, 'public')));
+
 app.listen(PORT, () => {
   console.log(`Server started on port ${PORT}`);
 });
+
 
 // Socket.io connect with path http://localhost/app/pixelwar
 io.of('/app/pixelwar')
@@ -32,5 +36,6 @@ io.of('/app/pixelwar')
     // test client connection
     socket.emit('ping', 'pong');
 });
+
 
 
