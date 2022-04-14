@@ -27,7 +27,7 @@ io.of('/app/pixelwar')
     console.log('a user connected to pixelwar!!!');
 
     // get client ip
-    const ip = socket.conn.remoteAddress;
+    const ip = socket.request.connection.remoteAddress;
     console.log(`${ip} connected`);
     
     // test client connection
