@@ -28,8 +28,8 @@ io.of('/app/pixelwar')
 
     // get client ip
     const ip = socket.request.connection.remoteAddress;
-    console.log(`${ip} connected`);
-    
+    var address = socket.handshake.address;
+    console.log('New connection from ' + address.address + ':' + address.port);
     // test client connection
     socket.emit('ping', 'pong');
 });
