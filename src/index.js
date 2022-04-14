@@ -23,3 +23,14 @@ app.get('/', (req, res) => {
 app.listen(PORT, () => {
   console.log(`Server started on port ${PORT}`);
 });
+
+// Socket.io connect with path http://localhost/app/pixelwar
+io.of('/app/pixelwar')
+  .on('connection', (socket) => {
+    console.log('a user connected to pixelwar!!!');
+
+    // test client connection
+    socket.emit('ping', 'pong');
+});
+
+
