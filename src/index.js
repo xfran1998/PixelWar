@@ -30,6 +30,13 @@ io.of('/app/pixelwar')
     const ip = socket.request.connection.remoteAddress;
     var address = socket.handshake.address;
     console.log('New connection from ' + address.address + ':' + address.port);
+
+    var sHeaders = socket.handshake.headers;
+    console.info('[%s:%s] CONNECT', sHeaders['x-forwarded-for'], sHeaders['x-forwarded-port']);
+
+    var endpoint = socket.manager.handshaken[socket.id].address;
+    console.log('Client connected from: ' + endpoint.address + ":" + endpoint.port);
+
     // test client connection
     socket.emit('ping', 'pong');
 });
