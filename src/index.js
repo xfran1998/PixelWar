@@ -27,14 +27,9 @@ io.of('/app/pixelwar')
     console.log('a user connected to pixelwar!!!');
 
     // get client ip
-    const ip = socket.request.connection.remoteAddress;
-    console.log(`${ip} connected to pixelwar`);
-
-    var address = socket.handshake.address;
-    console.log('New connection from ' + address.address + ':' + address.port);
-
-    var sHeaders = socket.handshake.headers;
-    console.info('[%s:%s] CONNECT', sHeaders['x-forwarded-for'], sHeaders['x-forwarded-port']);
+    // const ip = socket.request.connection.remoteAddress;
+    const ip = socket.handshake.headers['x-forwarded-for'];
+    console.info(`${ip} connected to pixelwar`);
 
     // test client connection
     socket.emit('ping', 'pong');
