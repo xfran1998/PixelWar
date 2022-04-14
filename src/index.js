@@ -16,10 +16,7 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
-// Default route
-app.use('/', express.static(path.join(__dirname, 'public')));
-
-app.use(express.static(path.join(__dirname, 'dist')));
+app.use(express.static(path.join(__dirname, 'public')));
 
 server.listen(PORT, () => {console.log(`runing on port ${PORT}`);});
 
@@ -30,7 +27,7 @@ io.of('/app/pixelwar')
     console.log('a user connected to pixelwar!!!');
 
     // get client ip
-    const ip = socket.handshake.address;
+    const ip = socket.conn.remoteAddress;
     console.log(`${ip} connected`);
     
     // test client connection
