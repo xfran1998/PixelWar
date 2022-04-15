@@ -14,4 +14,7 @@ socket.on('pixel_click_server', data => {
   pixelWar.drawPixel(data.x, data.y, data.color);
 });
 
+socket.on('init_war_server', pixel_war => {
+  pixelWar.initWar(pixel_war);
+});
 

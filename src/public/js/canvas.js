@@ -12,11 +12,21 @@ class PixelWar{
     this.canvas_size = {width: this.canvas.width, height: this.canvas.height};
     this.cell_size = {width: this.canvas_size.width / this.grid.cols, height: this.canvas_size.height / this.grid.rows};
   }
+
+  initWar(canvas_war_pixels){
+    canvas_war_pixels.forEach((row, x) => {
+      row.forEach((color, y) => {
+        this.drawPixel(x, y, color);
+      });
+    });
+  }
   
   addListeners(callback){
     this.canvas.addEventListener('click', e => {
-      this.drawPixel(e.offsetX, e.offsetY, this.my_color);
-      callback({x: e.offsetX, y: e.offsetY, color: this.my_color});
+      let cell = {x: Math.floor(e.offsetX / this.cell_size.width), y: Math.floor(e.offsetY / this.cell_size.height)};
+
+      this.drawPixel(cell.x, cell.y, this.my_color);
+      callback({x: cell.x, y: cell.y, color: this.my_color});
     });
   
     this.color_input.addEventListener('change', e => {
@@ -48,14 +58,12 @@ class PixelWar{
   }
 
   drawPixel(x, y, color){ 
-    let cell = {x: Math.floor(x / this.cell_size.width), y: Math.floor(y / this.cell_size.height)};
-    
-    console.log(`cell: ${cell.x}, ${cell.y}`);
+    console.log(`cell: ${x}, ${y}`);
     this.ctx.fillStyle= color;
     this.ctx.beginPath();
-    this.ctx.fillRect(cell.x*this.cell_size.width, cell.y*this.cell_size.height, this.cell_size.width, this.cell_size.height);
+    this.ctx.fillRect(x*this.cell_size.width, y*this.cell_size.height, this.cell_size.width, this.cell_size.height);
     
-    this.ctx.strokeRect(cell.x*this.cell_size.width, cell.y*this.cell_size.height, this.cell_size.width, this.cell_size.height);
+    this.ctx.strokeRect(x*this.cell_size.width, y*this.cell_size.height, this.cell_size.width, this.cell_size.height);
   }
 }
 
