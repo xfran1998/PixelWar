@@ -28,11 +28,9 @@ io.of('/app/pixelwar')
     const ip = socket.handshake.headers['x-forwarded-for'];
     console.info(`${ip} connected to pixelwar`);
 
-    // test client connection
-    socket.emit('ping', 'ping');
-
-    socket.on('pong', data => {
-      console.log(`recieve ${data}`);
+    socket.on('pixel_click_client', (data) => {
+      console.log(`${ip} clicked pixel: ${data.x}, ${data.y}`);
+      socket.broadcast.emit('pixel_click_server', data);
     });
 });
 
