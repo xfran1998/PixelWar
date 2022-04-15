@@ -20,19 +20,20 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 server.listen(PORT, () => {console.log(`runing on port ${PORT}`);});
 
-
 // Socket.io connect with path http://localhost/app/pixelwar
 io.of('/app/pixelwar')
   .on('connection', (socket) => {
-    console.log('a user connected to pixelwar!!!');
-
     // get client ip
-    // const ip = socket.request.connection.remoteAddress;
+    // const ip = socket.request.connection.remoteAddress;""
     const ip = socket.handshake.headers['x-forwarded-for'];
     console.info(`${ip} connected to pixelwar`);
 
     // test client connection
-    socket.emit('ping', 'pong');
+    socket.emit('ping', 'ping');
+
+    socket.on('pong', data => {
+      console.log(`recieve ${data}`);
+    });
 });
 
 
