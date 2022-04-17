@@ -1,5 +1,3 @@
-// import {PixelWar} from './canvas.js';
-
 // Conecting to socket server
 const socket = io.connect('/app/pixelwar');
 

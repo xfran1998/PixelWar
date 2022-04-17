@@ -11,6 +11,8 @@ class PixelWar{
     this.grid = {rows: 30, cols: 30};
     this.canvas_size = {width: this.canvas.width, height: this.canvas.height};
     this.cell_size = {width: this.canvas_size.width / this.grid.cols, height: this.canvas_size.height / this.grid.rows};
+
+    this.couldPrint = true;
   }
 
   initWar(canvas_war_pixels){
@@ -26,7 +28,16 @@ class PixelWar{
       let cell = {x: Math.floor(e.offsetX / this.cell_size.width), y: Math.floor(e.offsetY / this.cell_size.height)};
 
       this.drawPixel(cell.x, cell.y, this.my_color);
-      callback({x: cell.x, y: cell.y, color: this.my_color});
+      
+      if (this.couldPrint) 
+        callback({x: cell.x, y: cell.y, color: this.my_color});
+      
+      if (!this.couldPrint) return;
+      
+      this.couldPrint = false;
+      setTimeout(() => {
+        this.couldPrint = true;
+      }, 5000);
     });
   
     this.color_input.addEventListener('change', e => {
