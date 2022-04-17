@@ -25,16 +25,14 @@ class PixelWar{
   
   addListeners(callback){
     this.canvas.addEventListener('click', e => {
-      let cell = {x: Math.floor(e.offsetX / this.cell_size.width), y: Math.floor(e.offsetY / this.cell_size.height)};
-
-      this.drawPixel(cell.x, cell.y, this.my_color);
-      
-      if (this.couldPrint) 
-        callback({x: cell.x, y: cell.y, color: this.my_color});
-      
       if (!this.couldPrint) return;
       
+      let cell = {x: Math.floor(e.offsetX / this.cell_size.width), y: Math.floor(e.offsetY / this.cell_size.height)};
+      this.drawPixel(cell.x, cell.y, this.my_color);
+      callback({x: cell.x, y: cell.y, color: this.my_color});
+      
       this.couldPrint = false;
+      console.log(this.couldPrint);
       setTimeout(() => {
         this.couldPrint = true;
       }, 5000);
